@@ -52,7 +52,7 @@ class Questions
         FROM
           replies 
         WHERE
-          title = ? 
+          users_id = ? 
         SQL
         return nil unless question.length > 0
         Questions.new(question.first)
@@ -65,6 +65,14 @@ class Questions
         @body = options['body']
         @users_id = options['users_id']
     end 
+
+    def author 
+        Users.find_by_id(users_id)
+    end
+
+    def replies 
+        Replies.find_by_question_id(self.id)
+    end
 
 end
 
@@ -112,14 +120,12 @@ class Users
     end 
 
     def authored_questions
-        Question.find_by_users_id(self.id)
+        Questions.find_by_users_id(self.id)
     end 
 
-
-
-
-
-
+    def authored_replies 
+        Replies.find_by_users_id(self.id)
+    end
 end 
 
 
@@ -217,6 +223,26 @@ class Replies
         @users_id = options['users_id']
         @questions_id = options['questions_id']
     end 
+
+    def author 
+        Users.find_by_id(users_id)
+    end
+
+    def question 
+        Questions.find_by_id(questions_id)
+    end
+
+    def parent_reply
+        #if this self.id - 1 does not = 0
+        if id - 1 != 0 && questions_id == 
+
+        end
+        #AND quesitons id of self id == questions id of self id-1
+        #return self id -1 
+        
+
+        Replies.find_by_id(id - 1)
+    end
 end 
 
 
