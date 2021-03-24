@@ -33,7 +33,7 @@ CREATE TABLE replies (
 
 CREATE TABLE questions_likes (
     id INTEGER PRIMARY KEY,
-    likes BOOLEAN NOT NULL,
+    likes TEXT NOT NULL,
     questions_id INTEGER NOT NULL,
     users_id INTEGER NOT NULL,
     FOREIGN KEY (questions_id) REFERENCES questions(id),
@@ -44,13 +44,16 @@ INSERT INTO
   users (fname, lname)
 VALUES
     ('Sebastian', 'Sanchez'),
-    ('Evan', 'Leon');
+    ('Evan', 'Leon'),
+    ('hello', 'world'),
+    ('wheat','thins');
 
 INSERT INTO
   questions (title, body, users_id)
 VALUES
     ('Sebastian', 'Sanchez', 1),
-    ('Evan', 'Leon', 2);
+    ('Evan', 'Leon', 2),
+    ('hello', 'what is this?', 1);
 
 INSERT INTO
   questions_follows (users_id, questions_id)

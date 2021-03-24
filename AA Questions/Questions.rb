@@ -42,7 +42,19 @@ class Questions
           title = ? 
         SQL
         return nil unless question.length > 0
+        Questions.new(question.first)
+    end
 
+     def self.find_by_users_id(users_id)
+        question = QuestionDBConnection.instance.execute(<<-SQL, users_id) 
+        SELECT
+          *
+        FROM
+          replies 
+        WHERE
+          title = ? 
+        SQL
+        return nil unless question.length > 0
         Questions.new(question.first)
     end
 
@@ -54,16 +66,13 @@ class Questions
         @users_id = options['users_id']
     end 
 
-    
-
-
 end
 
 class Users
 
     def self.all
         data = QuestionDBConnection.instance.execute('SELECT * FROM users')
-        data.map { |datum| Questions.new(datum) }
+        data.map { |datum| Users.new(datum) }
     end 
 
     def self.find_by_id(id)
@@ -80,7 +89,7 @@ class Users
         Users.new(user.first)
     end
 
-    def self.find_by_id(fname, lname)
+    def self.find_by_name(fname, lname)
         user = QuestionDBConnection.instance.execute(<<-SQL, fname, lname) 
         SELECT
           *
@@ -101,13 +110,29 @@ class Users
         @fname = options['fname']
         @lname = options['lname']
     end 
+
+    def authored_questions
+        Question.find_by_users_id(self.id)
+    end 
+
+
+
+
+
+
 end 
+
+
+
+
+
+
 
 class QuestionsFollows
 
     def self.all
         data = QuestionDBConnection.instance.execute('SELECT * FROM questions_follows')
-        data.map { |datum| Questions.new(datum) }
+        data.map { |datum| QuestionsFollows.new(datum) }
     end 
 
     def self.find_by_id(id)
@@ -132,11 +157,16 @@ class QuestionsFollows
     end 
 end 
 
+
+
+
+
+
 class Replies
 
     def self.all
         data = QuestionDBConnection.instance.execute('SELECT * FROM replies')
-        data.map { |datum| Questions.new(datum) }
+        data.map { |datum| Replies.new(datum) }
     end 
 
     def self.find_by_id(id)
@@ -153,7 +183,34 @@ class Replies
         Replies.new(reply.first)
     end
 
+    def self.find_by_users_id(users_id)
+        question = QuestionDBConnection.instance.execute(<<-SQL, users_id) 
+        SELECT
+          *
+        FROM
+          replies 
+        WHERE
+          title = ? 
+        SQL
+        return nil unless question.length > 0
+        Replies.new(question.first)
+    end
+
+    def self.find_by_question_id(question_id)
+        question = QuestionDBConnection.instance.execute(<<-SQL, question_id) 
+        SELECT
+          *
+        FROM
+          replies 
+        WHERE
+          title = ? 
+        SQL
+        return nil unless question.length > 0
+        Replies.new(question.first)
+    end
+
     attr_accessor :id, :body, :users_id, :questions_id
+
     def initialize(options)
         @id = options['id']
         @body = options['body']
@@ -167,7 +224,7 @@ class QuestionsLikes
 
     def self.all
         data = QuestionDBConnection.instance.execute('SELECT * FROM questions_likes')
-        data.map { |datum| Questions.new(datum) }
+        data.map { |datum| QuestionsLikes.new(datum) }
     end 
 
     def self.find_by_id(id)
@@ -188,7 +245,6 @@ class QuestionsLikes
     def initialize(options)
         @id = options['id']
         @likes = options['likes']
-        @body = options['body']
         @users_id = options['users_id']
         @questions_id = options['questions_id']
     end 
@@ -208,6 +264,6 @@ end
 #         SQL
 # end 
 
-ques = Questions.all 
+# ques = Questions.all 
 
-p Questions.find_by_id(1) 
+# p Questions.find_by_id(1) 
