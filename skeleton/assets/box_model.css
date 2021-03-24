@@ -14,6 +14,16 @@ h2 {
   font-size: 32px;
 }
 
+header {
+  display: inline;
+}
+
+nav li {
+  display:inline-block;
+}
+
+
+
 /* This selector selects ALL anchor tag children of ALL list elements that
 are children of an Unordered Lsit element */
 ul li a, figcaption a {
@@ -71,4 +81,12 @@ ol li:nth-of-type(2n) {
 h2 + .user_review {
     border-top: 1px solid black;
 }
+
+a {
+  display:block;
+  padding: 20px
+}
+
+
+
 
