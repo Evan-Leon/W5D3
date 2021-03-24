@@ -18,6 +18,7 @@ h2 {
 
 header {
   display: flex;
+  justify-content: space-between;
 }
 
 header > img {
@@ -25,7 +26,11 @@ header > img {
 }
 
 nav li {
-  display:inline-block;
+  display: flex;
+}
+
+nav > ul {
+  display: flex;
 }
 
 
@@ -98,7 +103,6 @@ aside {
   display: inline-block;
   width: 180px;
   margin-right: 15px;
-  align:
 }
 
 section {
@@ -116,12 +120,8 @@ ol > li {
   margin-bottom: 15px;
 }
 
-input { 
-  display: inline-block;
-}
-
 select {
-  margin: 20px;
+  margin: 10px 0;
   width:175px;
 }
 
@@ -129,8 +129,13 @@ textarea {
   width: 300px;
 }
 
-#name {
+input[type="text"], select {
   width: 175px;
+  display: block;
+}
+
+label {
+  display:block;
 }
 
 
