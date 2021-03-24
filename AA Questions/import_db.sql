@@ -40,6 +40,38 @@ CREATE TABLE questions_likes (
     FOREIGN KEY(users_id) REFERENCES users(id)
 );
 
+INSERT INTO
+  users (fname, lname)
+VALUES
+    ('Sebastian', 'Sanchez'),
+    ('Evan', 'Leon');
+
+INSERT INTO
+  questions (title, body, users_id)
+VALUES
+    ('Sebastian', 'Sanchez', 1),
+    ('Evan', 'Leon', 2);
+
+INSERT INTO
+  questions_follows (users_id, questions_id)
+VALUES
+    (1, 2),
+    (2, 1);
+
+INSERT INTO
+  replies (body, users_id, questions_id)
+VALUES
+    ('Sebastian', 1, 2),
+    ('Evan', 2, 1);
+
+
+INSERT INTO
+  questions_likes (likes, questions_id, users_id)
+VALUES
+    (true, 1, 2),
+    (true, 2, 1);
+
+ 
 
 
 
